@@ -23,7 +23,7 @@ type DBModel struct {
 func (m *DBModel) Connect() {
 	levelDBOpt := &opt.Options{
 		OpenFilesCacheCapacity: config.LevelDBOpenFilesCacheCapacity,
-		BlockCacheCapacity:     config.LevelDBCacheMemory,
+		BlockCacher:            opt.NoCacher,
 		WriteBuffer:            4,
 		Filter:                 nil,
 		ReadOnly:               false,
