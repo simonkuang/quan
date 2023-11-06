@@ -20,6 +20,9 @@ fi
 if [ "x$QUAN_LIST_SIZE" = "x" ]; then
     QUAN_LIST_SIZE=100
 fi
+if [ "x$QUAN_PORT" = "x" ]; then
+    QUAN_PORT=8080
+fi
 
 exec "$@" \
     -base-url $QUAN_BASE_URL \
@@ -28,3 +31,4 @@ exec "$@" \
     -char-range $QUAN_CHAR_RANGE \
     -default-redirect-url "$QUAN_DEFAULT_REDIRECT_URL" \
     -list-size $QUAN_LIST_SIZE
+    -port $QUAN_PORT

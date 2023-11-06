@@ -35,6 +35,7 @@ var (
 	CharRange          int      // character range. 62 for [0-9a-zA-Z], 36 for [0-9a-z]. Default: 62
 	DefaultRedirectUrl string   // redirect url. Default: /
 	ListSize           int
+	Port               int
 )
 
 func FlagsInit(ctx *gin.Engine) {
@@ -47,6 +48,7 @@ func FlagsInit(ctx *gin.Engine) {
 	flag.IntVar(&CharRange, "char-range", 62, "character range. 62 for [0-9a-zA-Z], 36 for [0-9a-z]. Default: 62")
 	flag.StringVar(&DefaultRedirectUrl, "default-redirect-url", "/", "redirect url. Default: /")
 	flag.IntVar(&ListSize, "list-size", 50, "list size. Default: 50")
+	flag.IntVar(&Port, "port", 8080, "port. Default: 8080")
 
 	// set default value for BaseUrl
 	if BaseUrl.String() == "" {
