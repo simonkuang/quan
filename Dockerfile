@@ -3,7 +3,7 @@ FROM alpine:latest AS builder
 #RUN sed -i \
 #    's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' \
 #    /etc/apk/repositories && \
-RUN apk update && apk add curl && \
+RUN apk update && apk add curl git && \
     mkdir -p /data/soft && \
     curl -Lo /data/soft/go1.21.3.linux-amd64.tar.gz \
     https://go.dev/dl/go1.21.3.linux-amd64.tar.gz && \
