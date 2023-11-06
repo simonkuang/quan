@@ -9,7 +9,7 @@ if [ "x$QUAN_LENGTH" = "x" ]; then
     QUAN_LENGTH=5
 fi
 if [ "x$QUAN_DB_FILE" = "x" ]; then
-    QUAN_DB_FILE="/var/lib/quan.db"
+    QUAN_DB_FILE="/data/quan/db"
 fi
 if [ "x$QUAN_CHAR_RANGE" = "x" ]; then
     QUAN_CHAR_RANGE=62
