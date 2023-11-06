@@ -26,7 +26,7 @@ func (s *ShortUrlEntity) String() string {
 	return string(jsonStr)
 }
 
-func Encode(url string, startPosition int) (string, error) {
+func Encode(url string, startPosition int, length int) (string, error) {
 	hash := sha256.New()
 	hash.Write([]byte(config.SecretPrefix + url))
 	hashSum := hash.Sum(nil)
@@ -39,9 +39,9 @@ func Encode(url string, startPosition int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if (startPosition+1)*config.Length >= len(hashStr) {
+	if (startPosition+1)*length >= len(hashStr) {
 		return "", errors.New("FATAL: Highly Conflict")
 	}
-	fmt.Printf("%d\t%d\t%s\n", startPosition, config.Length, hashStr)
-	return hashStr[startPosition*config.Length : (startPosition+1)*config.Length], nil
+	// fmt.Printf("%d\t%d\t%s\n", startPosition, config.Length, hashStr)
+	return hashStr[startPosition*length : (startPosition+1)*length], nil
 }

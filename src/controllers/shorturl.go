@@ -14,9 +14,9 @@ import (
 )
 
 type EntityList struct {
-	Shorten string
-	Url     string
-	Time    *time.Time
+	Shorten string     `json:"shorten"`
+	Url     string     `json:"url"`
+	Time    *time.Time `json:"time"`
 }
 
 // print configs and flags
@@ -61,7 +61,7 @@ func SetController(ctx *gin.Context) {
 			hashStr = forceHash
 			forceHash = ""
 		} else {
-			hashStr, err = codec.Encode(originUrl, startPostion)
+			hashStr, err = codec.Encode(originUrl, startPostion, config.Length)
 			startPostion += config.Length
 			if err != nil {
 				Err(ctx, 503, "Failed on Encoding Original URL: "+err.Error())
@@ -175,6 +175,9 @@ func ListController(ctx *gin.Context) {
 	var EntityListArr []EntityList
 	for iter.Next() {
 		count++
+		if count > size {
+			break
+		}
 		entity := &codec.ShortUrlEntity{}
 		err := json.Unmarshal([]byte(iter.Value()), entity)
 		if err != nil {
@@ -185,10 +188,8 @@ func ListController(ctx *gin.Context) {
 			Url:     entity.Url,
 			Time:    entity.Time,
 		})
-		if count > size {
-			break
-		}
 	}
+	iter.Release()
 	OK(ctx, gin.H{
 		"list": EntityListArr,
 	})
