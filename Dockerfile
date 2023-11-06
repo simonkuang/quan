@@ -24,7 +24,7 @@ COPY --from=builder /data/bin/quan /usr/bin/quan
 COPY ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 RUN mkdir -p /data/quan && \
-    chown +x /usr/bin/docker-entrypoint.sh
+    chmod +x /usr/bin/docker-entrypoint.sh
 
 WORKDIR /data/quan
 
