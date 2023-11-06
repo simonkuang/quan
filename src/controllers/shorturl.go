@@ -10,6 +10,7 @@ import (
 	"github.com/simonkuang/quan/src/codec"
 	"github.com/simonkuang/quan/src/config"
 	"github.com/simonkuang/quan/src/db"
+	"github.com/syndtr/goleveldb/leveldb/util"
 )
 
 type EntityList struct {
@@ -87,6 +88,7 @@ func SetController(ctx *gin.Context) {
 			Err(ctx, 504, "Failed Putting Data: "+err.Error())
 			return
 		}
+		database.GetLevelDB().CompactRange(util.Range{})
 
 		OK(ctx, gin.H{
 			"hash": hashStr,
@@ -215,6 +217,7 @@ func DeleteController(ctx *gin.Context) {
 			done = append(done, ids[i])
 		}
 	}
+	database.GetLevelDB().CompactRange(util.Range{})
 	OK(ctx, gin.H{
 		"deleted": done,
 		"failed":  undone,
