@@ -166,11 +166,13 @@ func ListController(ctx *gin.Context) {
 		Err(ctx, 502, "Database not initialized at beginning.")
 		return
 	}
-	iter := database.GetLevelDB().NewIterator(nil, nil)
-	defer iter.Release()
+
+	r := &util.Range{Start: []byte(lastKey), Limit: nil}
 	if lastKey == "" {
-		iter.Seek([]byte(lastKey))
+		r = nil
 	}
+	iter := database.GetLevelDB().NewIterator(r, nil)
+	defer iter.Release()
 	count := 0
 	var EntityListArr []EntityList
 	for iter.Next() {
