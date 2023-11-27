@@ -14,6 +14,9 @@ import (
 )
 
 func main() {
+	// set log output
+	log.SetOutput(os.Stdout)
+
 	r := gin.Default()
 
 	config.FlagsInit(r)
@@ -31,9 +34,6 @@ func main() {
 		ctx.Next()
 	})
 	controllers.RegisterControllers(r)
-
-	// set log output
-	log.SetOutput(os.Stdout)
 
 	// tick-tock task
 	go func() {
