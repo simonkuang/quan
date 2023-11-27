@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -29,6 +31,9 @@ func main() {
 		ctx.Next()
 	})
 	controllers.RegisterControllers(r)
+
+	// set log output
+	log.SetOutput(os.Stdout)
 
 	// tick-tock task
 	go func() {
