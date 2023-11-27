@@ -2,6 +2,7 @@ package db
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/simonkuang/quan/src/config"
 	"github.com/syndtr/goleveldb/leveldb"
@@ -19,8 +20,13 @@ type DBModel struct {
 	ldb *leveldb.DB
 }
 
+func GetDbFileName() string {
+	config.DBVersionStep++
+	return fmt.Sprintf("%s.%04d", config.DbFile, config.DBVersionStep)
+}
+
 // connect to leveldb
-func (m *DBModel) Connect() {
+func (m *DBModel) Connect(dbFile string) {
 	levelDBOpt := &opt.Options{
 		OpenFilesCacheCapacity: config.LevelDBOpenFilesCacheCapacity,
 		BlockCacheCapacity:     config.LevelDBCacheMemory / 2,
@@ -28,7 +34,7 @@ func (m *DBModel) Connect() {
 		ReadOnly:               false,
 	}
 
-	ldb, err := leveldb.OpenFile(config.DbFile, levelDBOpt)
+	ldb, err := leveldb.OpenFile(dbFile, levelDBOpt)
 	if err != nil {
 		panic(err)
 	}

@@ -12,6 +12,7 @@ import (
 )
 
 type ShortUrlEntity struct {
+	Hash         string     `json:"hash"`
 	Url          string     `json:"url"`
 	ShortUrl     string     `json:"short"`
 	SecretPrefix string     `json:"prefix"`

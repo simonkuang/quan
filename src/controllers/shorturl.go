@@ -74,9 +74,11 @@ func SetController(ctx *gin.Context) {
 
 		t := time.Now()
 		entity := &codec.ShortUrlEntity{
-			Url:      originUrl,
-			ShortUrl: HashToShortenUrl(hashStr),
-			Time:     &t,
+			Hash:         hashStr,
+			Url:          originUrl,
+			ShortUrl:     HashToShortenUrl(hashStr),
+			SecretPrefix: config.SecretPrefix,
+			Time:         &t,
 		}
 		jsonStr, err := json.Marshal(entity)
 		if err != nil {

@@ -8,4 +8,6 @@ var (
 	LevelDBOpenFilesCacheCapacity int = 1
 
 	SecretPrefix string = "k8EtkYvyDuzQSU9N"
+
+	DBVersionStep int = 0
 )
