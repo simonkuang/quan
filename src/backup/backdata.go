@@ -16,7 +16,7 @@ import (
 
 var stor *BackupStorage
 
-func Backup(db *leveldb.DB, backupName string, backupSize int) {
+func Backup(db *leveldb.DB, backupName string, backupSize int) bool {
 	iter := db.NewIterator(nil, nil)
 	defer iter.Release()
 	var count int = 0
@@ -77,6 +77,7 @@ func Backup(db *leveldb.DB, backupName string, backupSize int) {
 
 	stor.Close()
 	iter.Release()
+	return true
 }
 
 func Restore(backupName string, stepVersion int) *db.DBModel {

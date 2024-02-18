@@ -34,8 +34,12 @@ fi
 if [ "x$QUAN_BACKUP_BATCH_SIZE" = "x" ]; then
     QUAN_BACKUP_BATCH_SIZE="100000"
 fi
+# deprecated
 if [ "x$QUAN_BACKUP_INTERVAL" = "x" ]; then
     QUAN_BACKUP_INTERVAL="1200"
+fi
+if [ "x$QUAN_BACKUP_SCAN_DIRTY_INTERVAL" = "x" ]; then
+    QUAN_BACKUP_SCAN_DIRTY_INTERVAL="3"
 fi
 if [ "x$QUAN_BACKUP_CREDENTIAL_FILE" = "x" ]; then
     QUAN_BACKUP_CREDENTIAL_FILE=${GOOGLE_CREDENTIAL_FILE:-""}
@@ -56,5 +60,6 @@ exec "$@" \
     -backup-filename "$QUAN_BACKUP_FILENAME" \
     -backup-size "$QUAN_BACKUP_BATCH_SIZE" \
     -backup-interval "$QUAN_BACKUP_INTERVAL" \
+    -backup-scan-dirty-interval "$QUAN_BACKUP_SCAN_DIRTY_INTERVAL" \
     -credential-file-google "$QUAN_BACKUP_CREDENTIAL_FILE" \
     -credential-content-google "$QUAN_BACKUP_CREDENTIAL_CONTENT"

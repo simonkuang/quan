@@ -41,6 +41,7 @@ var (
 	BackupSize              int
 	BackupFileName          string
 	BackupInterval          int
+	BackupScanDirtyInterval int
 	CredentialFileGoogle    string
 	CredentialContentGoogle string
 )
@@ -60,7 +61,8 @@ func FlagsInit(ctx *gin.Engine) {
 	flag.StringVar(&BackupBucket, "backup-bucket", "bucket-name", "google cloud bucket name for backup")
 	flag.StringVar(&BackupFileName, "backup-filename", "backup", "google cloud bucket backup name")
 	flag.IntVar(&BackupSize, "backup-size", 100000, "max items in each backup file")
-	flag.IntVar(&BackupInterval, "backup-interval", 600, "how long to backup data into storage bucket (unit: sec)")
+	flag.IntVar(&BackupInterval, "backup-interval", 600, "how long to backup data into storage bucket (unit: sec)") // deprecated. use backup-scan-dirty-interval instead.
+	flag.IntVar(&BackupScanDirtyInterval, "backup-scan-dirty-interval", 2, "interval to scan data dirty flag to control backup (unit: sec)")
 	flag.StringVar(&CredentialFileGoogle, "credential-file-google", "", "google cloud credential file path")
 	flag.StringVar(&CredentialContentGoogle, "credential-content-google", "", "google cloud credential content")
 

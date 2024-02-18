@@ -37,11 +37,25 @@ func main() {
 
 	// tick-tock task
 	go func() {
-		ticker := time.NewTicker(time.Second * time.Duration(config.BackupInterval))
+		ticker := time.NewTicker(time.Second * time.Duration(config.BackupScanDirtyInterval))
 		for {
 			select {
 			case <-ticker.C:
-				backup.Backup(database.GetLevelDB(), config.BackupFileName, config.BackupSize)
+				// if data is not dirty, skip this one
+				if !config.BackupDirtyFlag {
+					continue
+				}
+				// if another backup is running, skip this one
+				if config.BackupRunningFlag {
+					continue
+				}
+				// backup operation
+				config.BackupRunningFlag = true
+				flag := backup.Backup(database.GetLevelDB(), config.BackupFileName, config.BackupSize)
+				config.BackupRunningFlag = false
+				if flag {
+					config.BackupDirtyFlag = false
+				}
 			}
 		}
 	}()

@@ -91,6 +91,7 @@ func SetController(ctx *gin.Context) {
 			return
 		}
 		database.GetLevelDB().CompactRange(util.Range{})
+		config.BackupDirtyFlag = true // flag data is dirty
 
 		OK(ctx, gin.H{
 			"hash": hashStr,
@@ -223,6 +224,7 @@ func DeleteController(ctx *gin.Context) {
 		}
 	}
 	database.GetLevelDB().CompactRange(util.Range{})
+	config.BackupDirtyFlag = true // flag data is dirty
 	OK(ctx, gin.H{
 		"deleted": done,
 		"failed":  undone,

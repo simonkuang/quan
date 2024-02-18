@@ -10,4 +10,8 @@ var (
 	SecretPrefix string = "k8EtkYvyDuzQSU9N"
 
 	DBVersionStep int = 0
+
+	// data dirty flag for backup
+	BackupDirtyFlag   bool = false
+	BackupRunningFlag bool = false
 )
